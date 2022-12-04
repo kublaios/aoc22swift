@@ -2,10 +2,6 @@ import XCTest
 @testable import aoc22swift
 
 final class aoc22swiftTests: XCTestCase {
-    func testSolutionParsesInput() {
-        XCTAssertNotEqual(Day2.Solution().input, "")
-    }
-
     // MARK: Part one tests
 
     func testRockPaperScissorsDeterminerDeterminesWinner() {
