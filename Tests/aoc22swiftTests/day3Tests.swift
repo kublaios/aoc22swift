@@ -114,4 +114,50 @@ final class day3Tests: XCTestCase {
         )
         XCTAssertEqual(totalSum, expectedTotalSum)
     }
+
+    // MARK: Part two
+
+    func testCommonElementsFinderFindsCommonElementsInMoreThanTwoArrays() {
+        let arrays = [
+            ["a", "b", "c", "d"],
+            ["b", "c", "d"],
+            ["c", "d", "e"],
+            ["d", "e", "f"],
+        ]
+        let expectedCommonElements = ["d"]
+        let commonElements = Day3.CommonElementsFinder.findCommonElementsIn(arrays)
+        XCTAssertEqual(commonElements, expectedCommonElements)
+    }
+
+    func testStringArrayGrouperGroupsArray() {
+        let input = """
+                    vJrwpWtwJgWrhcsFMMfFFhFp
+                    jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+                    PmmdzqPrVvPwwTWBwg
+                    wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+                    ttgJtRGJQctTZtZT
+                    CrZsJsPPZsGzwwsLwLmpwMDw
+                    """
+        let expectedGroups = [
+            ["vJrwpWtwJgWrhcsFMMfFFhFp", "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL", "PmmdzqPrVvPwwTWBwg"],
+            ["wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn", "ttgJtRGJQctTZtZT", "CrZsJsPPZsGzwwsLwLmpwMDw"],
+        ]
+        let groups = Day3.StringArrayGrouper.group(array: input.components(separatedBy: "\n"), by: 3)
+        XCTAssertEqual(groups, expectedGroups)
+    }
+
+    func testSolutionPartTwoCalculatesPriorityOfItemsFoundInGroupItems() {
+        let expectedTotalSum = 70
+        let totalSum = Day3.Solution().partTwo(
+            """
+            vJrwpWtwJgWrhcsFMMfFFhFp
+            jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+            PmmdzqPrVvPwwTWBwg
+            wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+            ttgJtRGJQctTZtZT
+            CrZsJsPPZsGzwwsLwLmpwMDw
+            """
+        )
+        XCTAssertEqual(totalSum, expectedTotalSum)
+    }
 }
