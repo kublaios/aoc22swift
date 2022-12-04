@@ -1,3 +1,8 @@
-# aoc22swift
+# Advent of Code 2022 (ft. GitHub Copilot)
 
-A description of this package.
+* Language: Swift
+* Type: Executable
+* Bonus: Kinda test-driven
+
+## Progress
+![Advent of Code progress screenshot](./img/progress.png)
