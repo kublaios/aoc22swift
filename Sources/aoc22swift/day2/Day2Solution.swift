@@ -26,23 +26,58 @@ enum Day2 {
             let points = lines.map { Day2.RPSRoundPlayerTwoPointsCalculator.calculatePlayerTwoPoints($0) }
             return points.reduce(0, +)
         }
+
+        func partTwo(_ overriddenInput: String? = nil) -> Int {
+            let input = overriddenInput ?? input
+            let lines = input.components(separatedBy: "\n")
+            let points = lines.map { Day2.RPSRoundPlayerTwoPointsCalculator.calculatePlayerTwoPoints($0, correctMoves: true) }
+            return points.reduce(0, +)
+        }
     }
 
-    enum RPSMove {
-        case rock
-        case paper
-        case scissors
+    enum RPSMove: String {
+        case rock = "A"
+        case paper = "B"
+        case scissors = "C"
+
+        func requiredOpponentMove(for result: RPSResult) -> RPSMove {
+            switch result {
+            case .win:
+                switch self {
+                case .rock:
+                    return .paper
+                case .paper:
+                    return .scissors
+                case .scissors:
+                    return .rock
+                }
+            case .lose:
+                switch self {
+                case .rock:
+                    return .scissors
+                case .paper:
+                    return .rock
+                case .scissors:
+                    return .paper
+                }
+            case .draw:
+                return self
+            }
+        }
     }
 
-    enum RPSResult {
-        case win
-        case lose
-        case draw
+    enum RPSResult: String {
+        case lose = "X"
+        case draw = "Y"
+        case win = "Z"
     }
+
+    // MARK: Part one helpers
 
     enum RPSRoundPlayerTwoPointsCalculator {
-        static func calculatePlayerTwoPoints(_ roundRaw: String) -> Int {
-            let moves = RPSRoundMovesParser.parse(from: roundRaw)
+        static func calculatePlayerTwoPoints(_ roundRaw: String, correctMoves: Bool = false) -> Int {
+            let round = correctMoves ? RPSRoundMovesRawDataCorrector.correctMoves(from: roundRaw) : roundRaw
+            let moves = RPSRoundMovesParser.parse(from: round)
             let result = RockPaperScissorsDeterminer.determinePlayerTwoResult(moves: moves)
             let pointsForResult = RPSRoundPlayerTwoPointsCalculator.pointsForResult(result)
             let pointsForMove = RPSRoundPlayerTwoPointsCalculator.pointsForMove(moves.1)
@@ -103,6 +138,53 @@ enum Day2 {
             } else {
                 return .lose
             }
+        }
+    }
+
+    // MARK: Part two helpers
+
+    enum RPSRoundParser {
+        static func parse(from string: String) -> (RPSMove, RPSResult) {
+            let components = string.components(separatedBy: " ")
+            let move = RPSRoundParser.move(from: components[0])
+            let result = RPSRoundParser.result(from: components[1])
+            return (move, result)
+        }
+
+        private static func move(from string: String) -> RPSMove {
+            switch string {
+            case "A":
+                return .rock
+            case "B":
+                return .paper
+            case "C":
+                return .scissors
+            default:
+                fatalError("Invalid move: \(string)")
+            }
+        }
+
+        private static func result(from string: String) -> RPSResult {
+            switch string {
+            case "X":
+                return .lose
+            case "Y":
+                return .draw
+            case "Z":
+                return .win
+            default:
+                fatalError("Invalid result: \(string)")
+            }
+        }
+    }
+
+    enum RPSRoundMovesRawDataCorrector {
+        static func correctMoves(from string: String) -> String {
+            let roundData = RPSRoundParser.parse(from: string)
+            let move = roundData.0
+            let result = roundData.1
+            let opponentMove = move.requiredOpponentMove(for: result)
+            return "\(move.rawValue) \(opponentMove.rawValue)"
         }
     }
 }
