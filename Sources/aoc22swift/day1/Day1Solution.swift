@@ -6,19 +6,7 @@ import Foundation
 
 enum Day1 {
     struct Solution {
-        let input: String
-
-        init() {
-            // URL of the file at root
-            let url = URL(fileURLWithPath: #file)
-                .deletingLastPathComponent()
-                .appendingPathComponent("input.txt")
-
-            // Contents of the file
-            let contents = try! String(contentsOf: url)
-
-            input = contents
-        }
+        let input = InputParser.parseInput(from: #file)
 
         // Returns the highest sum in the given number chunks
         // Not super happy with overriding the input for tests but didn't want to over-engineer
