@@ -9,16 +9,23 @@ enum Day4 {
         let input = InputParser.parseInput(from: #file)
 
         func partOne(_ overriddenInput: String? = nil) -> Int {
-            let input = overriddenInput ?? input
-            let lines = LineByLineSplitter.split(input)
-            let rangeStrings = lines.map { StringExploder.explode($0, by: ",") }
-            let ranges = rangeStrings.map { $0.map { RangeGenerator.generate(from: $0) } }
+            let ranges = rangeDuosFromInput(input: overriddenInput ?? input)
             return ranges.filter {
-                if $0.count != 2 {
-                    fatalError("Invalid input")
-                }
-                return Day4.isOneRangeWithinBoundsOfAnother($0[0], $0[1])
-            }.count
+                    if $0.count != 2 {
+                        fatalError("Invalid input")
+                    }
+                    return Day4.isOneRangeWithinBoundsOfAnother($0[0], $0[1])
+                }.count
+        }
+
+        func partTwo(_ overriddenInput: String? = nil) -> Int {
+            let ranges = rangeDuosFromInput(input: overriddenInput ?? input)
+            return ranges.filter {
+                    if $0.count != 2 {
+                        fatalError("Invalid input")
+                    }
+                    return Day4.areTwoRangesOverlapping($0[0], $0[1])
+                }.count
         }
     }
 
@@ -27,5 +34,22 @@ enum Day4 {
     static func isOneRangeWithinBoundsOfAnother(_ one: ClosedRange<Int>, _ another: ClosedRange<Int>) -> Bool {
         (one.contains(another.lowerBound) && one.contains(another.upperBound))
         || (another.contains(one.lowerBound) && another.contains(one.upperBound))
+    }
+
+    // MARK: Day two
+
+    static func areTwoRangesOverlapping(_ one: ClosedRange<Int>, _ another: ClosedRange<Int>) -> Bool {
+        if one.contains(another.lowerBound) || one.contains(another.upperBound) {
+            return true
+        } else if another.contains(one.lowerBound) || another.contains(one.upperBound) {
+            return true
+        }
+        return false
+    }
+
+    static func rangeDuosFromInput(input: String) -> [[ClosedRange<Int>]] {
+        let lines = LineByLineSplitter.split(input)
+        let rangeStrings = lines.map { StringExploder.explode($0, by: ",") }
+        return rangeStrings.map { $0.map { RangeGenerator.generate(from: $0) } }
     }
 }
