@@ -102,4 +102,23 @@ final class day5Tests: XCTestCase {
         solution.runInstruction(instruction, on: &containers)
         XCTAssertEqual(containers, expected)
     }
+
+    // MARK: Part two
+
+    func testSolutionPartTwo() {
+        let input = """
+                        [D]    
+                    [N] [C]    
+                    [Z] [M] [P]
+                     1   2   3 
+
+                    move 1 from 2 to 1
+                    move 3 from 1 to 3
+                    move 2 from 2 to 1
+                    move 1 from 1 to 2
+                    """
+        let solution = Day5.Solution(input)
+        let result = solution.partTwo()
+        XCTAssertEqual(result, "MCD")
+    }
 }

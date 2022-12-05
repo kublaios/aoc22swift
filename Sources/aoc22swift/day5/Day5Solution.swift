@@ -31,10 +31,28 @@ enum Day5 {
             return containers.map { $0[0] }.joined()
         }
 
+        func partTwo() -> String {
+            var containers = containers
+            instructions.forEach {
+                runInstructionWithPreservedOrder($0, on: &containers)
+            }
+            // Concatenate first element of each container
+            return containers.map { $0[0] }.joined()
+        }
+
         func runInstruction(_ instruction: InstructionsBuilder.Instruction, on containers: inout [[String]]) {
             let fromContainer = containers[instruction.from - 1]
             let toContainer = containers[instruction.to - 1]
+            // Move elements as if one by one where first in deepest in the stack
             let letters = fromContainer.prefix(instruction.amount).reversed()
+            containers[instruction.from - 1] = Array(fromContainer.dropFirst(instruction.amount))
+            containers[instruction.to - 1] = letters + toContainer
+        }
+
+        func runInstructionWithPreservedOrder(_ instruction: InstructionsBuilder.Instruction, on containers: inout [[String]]) {
+            let fromContainer = containers[instruction.from - 1]
+            let toContainer = containers[instruction.to - 1]
+            let letters = fromContainer.prefix(instruction.amount)
             containers[instruction.from - 1] = Array(fromContainer.dropFirst(instruction.amount))
             containers[instruction.to - 1] = letters + toContainer
         }
