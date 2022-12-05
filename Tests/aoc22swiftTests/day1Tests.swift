@@ -2,23 +2,6 @@ import XCTest
 @testable import aoc22swift
 
 final class day1Tests: XCTestCase {
-    func testFileSplitterSplitsUpToTwoLineBreaks() {
-        let input = """
-                    line1
-                    line2
-                    line3
-
-                    line4
-
-                    line5
-                    line6
-                    """
-        let fileSplitter = Day1.TwoLevelNewLineSplitter(input: input)
-        let expected = [["line1", "line2", "line3"], ["line4"], ["line5", "line6"]]
-        let actual = fileSplitter.split()
-        XCTAssertEqual(expected, actual)
-    }
-
     func testNestedArrayIntegerMapperMapsStringArrayToIntegerArray() {
         let input = [["1", "2", "3"], ["4", "5", "6"]]
         let nestedArrayIntegerMapper = Day1.NestedArrayIntegerMapper(input: input)

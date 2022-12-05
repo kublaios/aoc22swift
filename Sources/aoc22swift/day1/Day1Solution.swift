@@ -21,19 +21,10 @@ enum Day1 {
         }
 
         private func convertInputIntoSumOfNumberChunks(input: String) -> [Int] {
-            let fileSplitter = Day1.TwoLevelNewLineSplitter(input: input)
+            let fileSplitter = TwoLevelNewLineSplitter(input: input)
             let nestedArrayIntegerMapper = Day1.NestedArrayIntegerMapper(input: fileSplitter.split())
             let innerIntegerArrayElementsReducer = Day1.InnerIntegerArrayElementsReducer(input: nestedArrayIntegerMapper.map())
             return innerIntegerArrayElementsReducer.reduce()
-        }
-    }
-
-    struct TwoLevelNewLineSplitter {
-        let input: String
-        func split() -> [[String]] {
-            input.components(separatedBy: "\n\n").map {
-                $0.components(separatedBy: "\n")
-            }
         }
     }
 
