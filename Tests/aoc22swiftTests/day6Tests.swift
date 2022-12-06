@@ -6,8 +6,6 @@ import XCTest
 @testable import aoc22swift
 
 final class day6Tests: XCTestCase {
-    // MARK: Part one
-
     func testSolutionPartOne() {
         let solution = Day6.Solution()
         let inputs = [
@@ -24,6 +22,28 @@ final class day6Tests: XCTestCase {
         ]
         for (index, input) in inputs.enumerated() {
             let result = solution.partOne(input)
+            XCTAssertEqual(result, expected[index])
+        }
+    }
+
+    func testSolutionPartTwo() {
+        let solution = Day6.Solution()
+        let inputs = [
+            "mjqjpqmgbljsphdztnvjfqwrcgsmlb",
+            "bvwbjplbgvbhsrlpgdmjqwftvncz",
+            "nppdvjthqldpwncqszvftbrmjlhg",
+            "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg",
+            "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw",
+        ]
+        let expected = [
+            19,
+            23,
+            23,
+            29,
+            26,
+        ]
+        for (index, input) in inputs.enumerated() {
+            let result = solution.partTwo(input)
             XCTAssertEqual(result, expected[index])
         }
     }

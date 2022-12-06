@@ -13,6 +13,13 @@ enum Day6 {
             return result
         }
 
+        func partTwo(_ overriddenInput: String? = nil) -> Int {
+            let input = overriddenInput ?? InputParser.parseInput(from: #file)
+            let size = 14
+            let result = findFirstInstanceOfDifferentLetters(input, ofSize: size) + size
+            return result
+        }
+
         /// Finds first n-letter substring which has different letters.
         private func findFirstInstanceOfDifferentLetters(_ input: String, ofSize size: Int) -> Int {
             var index = 0
