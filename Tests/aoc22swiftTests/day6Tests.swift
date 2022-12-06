@@ -10,8 +10,21 @@ final class day6Tests: XCTestCase {
 
     func testSolutionPartOne() {
         let solution = Day6.Solution()
-        let result = solution.partOne()
-        XCTAssertEqual(result, "Not implemented")
+        let inputs = [
+            "bvwbjplbgvbhsrlpgdmjqwftvncz",
+            "nppdvjthqldpwncqszvftbrmjlhg",
+            "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg",
+            "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw",
+        ]
+        let expected = [
+            5,
+            6,
+            10,
+            11,
+        ]
+        for (index, input) in inputs.enumerated() {
+            let result = solution.partOne(input)
+            XCTAssertEqual(result, expected[index])
+        }
     }
-
 }
