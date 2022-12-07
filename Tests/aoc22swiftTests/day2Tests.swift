@@ -49,8 +49,9 @@ final class aoc22swiftTests: XCTestCase {
                     B X
                     C Z
                     """
+        let inputProvider = InputProvider(rawInput: input)
         let expected = 15
-        let actual = Day2.Solution().partOne(input)
+        let actual = Day2.Solution(inputProvider: inputProvider).partOne()
         XCTAssertEqual(expected, actual)
     }
 
@@ -81,8 +82,9 @@ final class aoc22swiftTests: XCTestCase {
                     B X
                     C Z
                     """
+        let inputProvider = InputProvider(rawInput: input)
         let expected = 12
-        let actual = Day2.Solution().partTwo(input)
+        let actual = Day2.Solution(inputProvider: inputProvider).partTwo()
         XCTAssertEqual(expected, actual)
     }
 }

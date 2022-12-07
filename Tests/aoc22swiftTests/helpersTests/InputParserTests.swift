@@ -7,7 +7,7 @@ import XCTest
 
 final class InputParserTests: XCTestCase {
     func testParsesInput() {
-        let input = InputParser.parseInput(from: #file)
+        let input = InputParser.parsedInput(file: #file)
         XCTAssertEqual(input, "looking forward for your input!")
     }
 }

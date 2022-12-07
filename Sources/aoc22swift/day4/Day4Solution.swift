@@ -6,10 +6,14 @@ import Foundation
 
 enum Day4 {
     struct Solution {
-        let input = InputParser.parseInput(from: #file)
+        let inputProvider: InputProvider
 
-        func partOne(_ overriddenInput: String? = nil) -> Int {
-            let ranges = rangeDuosFromInput(input: overriddenInput ?? input)
+        init(inputProvider: InputProvider = InputProvider(file: #file)) {
+            self.inputProvider = inputProvider
+        }
+
+        func partOne() -> Int {
+            let ranges = rangeDuosFromInput(input: inputProvider.input)
             return ranges.filter {
                     if $0.count != 2 {
                         fatalError("Invalid input")
@@ -18,8 +22,8 @@ enum Day4 {
                 }.count
         }
 
-        func partTwo(_ overriddenInput: String? = nil) -> Int {
-            let ranges = rangeDuosFromInput(input: overriddenInput ?? input)
+        func partTwo() -> Int {
+            let ranges = rangeDuosFromInput(input: inputProvider.input)
             return ranges.filter {
                     if $0.count != 2 {
                         fatalError("Invalid input")

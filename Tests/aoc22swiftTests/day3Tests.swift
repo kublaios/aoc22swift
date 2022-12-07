@@ -6,11 +6,6 @@ import XCTest
 @testable import aoc22swift
 
 final class day3Tests: XCTestCase {
-    func testSolutionInitializes() {
-        let solution = Day3.Solution()
-        XCTAssertNotNil(solution)
-    }
-
     // MARK: Part one
 
     func testStringSplitterSplitsInHalf() {
@@ -101,17 +96,17 @@ final class day3Tests: XCTestCase {
     }
 
     func testSolutionPartOneCalculatesSumOfPrioritiesOfCommonElements() {
-        let expectedTotalSum = 157
-        let totalSum = Day3.Solution().partOne(
-            """
-            vJrwpWtwJgWrhcsFMMfFFhFp
-            jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
-            PmmdzqPrVvPwwTWBwg
-            wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
-            ttgJtRGJQctTZtZT
-            CrZsJsPPZsGzwwsLwLmpwMDw
-            """
+        let inputProvider = InputProvider(rawInput: """
+                                                    vJrwpWtwJgWrhcsFMMfFFhFp
+                                                    jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+                                                    PmmdzqPrVvPwwTWBwg
+                                                    wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+                                                    ttgJtRGJQctTZtZT
+                                                    CrZsJsPPZsGzwwsLwLmpwMDw
+                                                    """
         )
+        let expectedTotalSum = 157
+        let totalSum = Day3.Solution(inputProvider: inputProvider).partOne()
         XCTAssertEqual(totalSum, expectedTotalSum)
     }
 
@@ -147,17 +142,17 @@ final class day3Tests: XCTestCase {
     }
 
     func testSolutionPartTwoCalculatesPriorityOfItemsFoundInGroupItems() {
-        let expectedTotalSum = 70
-        let totalSum = Day3.Solution().partTwo(
-            """
-            vJrwpWtwJgWrhcsFMMfFFhFp
-            jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
-            PmmdzqPrVvPwwTWBwg
-            wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
-            ttgJtRGJQctTZtZT
-            CrZsJsPPZsGzwwsLwLmpwMDw
-            """
+        let inputProvider = InputProvider(rawInput: """
+                                                    vJrwpWtwJgWrhcsFMMfFFhFp
+                                                    jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+                                                    PmmdzqPrVvPwwTWBwg
+                                                    wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+                                                    ttgJtRGJQctTZtZT
+                                                    CrZsJsPPZsGzwwsLwLmpwMDw
+                                                    """
         )
+        let expectedTotalSum = 70
+        let totalSum = Day3.Solution(inputProvider: inputProvider).partTwo()
         XCTAssertEqual(totalSum, expectedTotalSum)
     }
 }

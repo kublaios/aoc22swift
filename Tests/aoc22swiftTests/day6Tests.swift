@@ -7,7 +7,6 @@ import XCTest
 
 final class day6Tests: XCTestCase {
     func testSolutionPartOne() {
-        let solution = Day6.Solution()
         let inputs = [
             "bvwbjplbgvbhsrlpgdmjqwftvncz",
             "nppdvjthqldpwncqszvftbrmjlhg",
@@ -21,13 +20,12 @@ final class day6Tests: XCTestCase {
             11,
         ]
         for (index, input) in inputs.enumerated() {
-            let result = solution.partOne(input)
+            let result = Day6.Solution(inputProvider: InputProvider(rawInput: input)).partOne()
             XCTAssertEqual(result, expected[index])
         }
     }
 
     func testSolutionPartTwo() {
-        let solution = Day6.Solution()
         let inputs = [
             "mjqjpqmgbljsphdztnvjfqwrcgsmlb",
             "bvwbjplbgvbhsrlpgdmjqwftvncz",
@@ -43,7 +41,7 @@ final class day6Tests: XCTestCase {
             26,
         ]
         for (index, input) in inputs.enumerated() {
-            let result = solution.partTwo(input)
+            let result = Day6.Solution(inputProvider: InputProvider(rawInput: input)).partTwo()
             XCTAssertEqual(result, expected[index])
         }
     }

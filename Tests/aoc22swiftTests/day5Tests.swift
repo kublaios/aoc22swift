@@ -20,7 +20,8 @@ final class day5Tests: XCTestCase {
                     move 2 from 2 to 1
                     move 1 from 1 to 2
                     """
-        let solution = Day5.Solution(input)
+        let inputProvider = InputProvider(rawInput: input)
+        let solution = Day5.Solution(inputProvider: inputProvider)
         let result = solution.partOne()
         XCTAssertEqual(result, "CMZ")
     }
@@ -81,7 +82,8 @@ final class day5Tests: XCTestCase {
             Day5.InstructionsBuilder.Instruction(from: 2, to: 1, amount: 2),
             Day5.InstructionsBuilder.Instruction(from: 1, to: 2, amount: 1),
         ]
-        let solution = Day5.Solution(input)
+        let inputProvider = InputProvider(rawInput: input)
+        let solution = Day5.Solution(inputProvider: inputProvider)
         XCTAssertEqual(solution.containers, containers)
         XCTAssertEqual(solution.instructions, instructions)
     }
@@ -98,7 +100,9 @@ final class day5Tests: XCTestCase {
             ["M"],
             ["P"],
         ]
-        let solution = Day5.Solution()
+        // It's a code smell that we have to provide an empty input provider here.
+        // We should isolate the tested logic from the solution so we don't have to do this.
+        let solution = Day5.Solution(inputProvider: .empty)
         solution.runInstruction(instruction, on: &containers)
         XCTAssertEqual(containers, expected)
     }
@@ -117,8 +121,13 @@ final class day5Tests: XCTestCase {
                     move 2 from 2 to 1
                     move 1 from 1 to 2
                     """
-        let solution = Day5.Solution(input)
+        let inputProvider = InputProvider(rawInput: input)
+        let solution = Day5.Solution(inputProvider: inputProvider)
         let result = solution.partTwo()
         XCTAssertEqual(result, "MCD")
     }
+}
+
+private extension InputProvider {
+    static let empty = InputProvider(rawInput: "")
 }

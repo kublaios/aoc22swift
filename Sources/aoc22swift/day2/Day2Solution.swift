@@ -6,17 +6,21 @@ import Foundation
 
 enum Day2 {
     struct Solution {
-        let input = InputParser.parseInput(from: #file)
+        let inputProvider: InputProvider
 
-        func partOne(_ overriddenInput: String? = nil) -> Int {
-            let input = overriddenInput ?? input
+        init(inputProvider: InputProvider = InputProvider(file: #file)) {
+            self.inputProvider = inputProvider
+        }
+
+        func partOne() -> Int {
+            let input = inputProvider.input
             let lines = input.components(separatedBy: "\n")
             let points = lines.map { Day2.RPSRoundPlayerTwoPointsCalculator.calculatePlayerTwoPoints($0) }
             return points.reduce(0, +)
         }
 
-        func partTwo(_ overriddenInput: String? = nil) -> Int {
-            let input = overriddenInput ?? input
+        func partTwo() -> Int {
+            let input = inputProvider.input
             let lines = input.components(separatedBy: "\n")
             let points = lines.map { Day2.RPSRoundPlayerTwoPointsCalculator.calculatePlayerTwoPoints($0, correctMoves: true) }
             return points.reduce(0, +)

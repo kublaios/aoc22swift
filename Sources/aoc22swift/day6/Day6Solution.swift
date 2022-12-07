@@ -6,15 +6,21 @@ import Foundation
 
 enum Day6 {
     struct Solution {
-        func partOne(_ overriddenInput: String? = nil) -> Int {
-            let input = overriddenInput ?? InputParser.parseInput(from: #file)
+        let inputProvider: InputProvider
+
+        init(inputProvider: InputProvider = InputProvider(file: #file)) {
+            self.inputProvider = inputProvider
+        }
+
+        func partOne() -> Int {
+            let input = inputProvider.input
             let size = 4
             let indexOfSubstring = SubstringWithUniqueLettersDetector(string: input).findFirstInstanceOfDifferentLetters(size: size)
             return indexOfSubstring + size
         }
 
-        func partTwo(_ overriddenInput: String? = nil) -> Int {
-            let input = overriddenInput ?? InputParser.parseInput(from: #file)
+        func partTwo() -> Int {
+            let input = inputProvider.input
             let size = 14
             let indexOfSubstring = SubstringWithUniqueLettersDetector(string: input).findFirstInstanceOfDifferentLetters(size: size)
             return indexOfSubstring + size

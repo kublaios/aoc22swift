@@ -19,46 +19,48 @@ final class day1Tests: XCTestCase {
     }
 
     func testSolutionPartOneReturnsHighestSum() {
-        let solution = Day1.Solution()
+        let inputProvider = InputProvider(rawInput: """
+                                                    1000
+                                                    2000
+                                                    3000
+
+                                                    4000
+
+                                                    5000
+                                                    6000
+
+                                                    7000
+                                                    8000
+                                                    9000
+
+                                                    10000
+                                                    """)
+        let solution = Day1.Solution(inputProvider: inputProvider)
         let expected = 24000
-        let actual = solution.partOne("""
-                                      1000
-                                      2000
-                                      3000
-
-                                      4000
-
-                                      5000
-                                      6000
-
-                                      7000
-                                      8000
-                                      9000
-
-                                      10000
-                                      """)
+        let actual = solution.partOne()
         XCTAssertEqual(expected, actual)
     }
 
     func testSolutionPartTwoReturnsSumOfHighestThreeNumbers() {
-        let solution = Day1.Solution()
+        let inputProvider = InputProvider(rawInput: """
+                                                    1000
+                                                    2000
+                                                    3000
+
+                                                    4000
+
+                                                    5000
+                                                    6000
+
+                                                    7000
+                                                    8000
+                                                    9000
+
+                                                    10000
+                                                    """)
+        let solution = Day1.Solution(inputProvider: inputProvider)
         let expected = 45000
-        let actual = solution.partTwo("""
-                                      1000
-                                      2000
-                                      3000
-
-                                      4000
-
-                                      5000
-                                      6000
-
-                                      7000
-                                      8000
-                                      9000
-
-                                      10000
-                                      """)
+        let actual = solution.partTwo()
         XCTAssertEqual(expected, actual)
     }
 }

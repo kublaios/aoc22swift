@@ -8,10 +8,11 @@ enum Day5 {
     struct Solution {
         let containers: [[String]]
         let instructions: [InstructionsBuilder.Instruction]
-        let input = InputParser.parseInput(from: #file)
+        let inputProvider: InputProvider
 
-        init(_ overriddenInput: String? = nil) {
-            let data = TwoLevelNewLineSplitter(input: overriddenInput ?? input).split()
+        init(inputProvider: InputProvider = InputProvider(file: #file)) {
+            self.inputProvider = inputProvider
+            let data = TwoLevelNewLineSplitter(input: inputProvider.input).split()
             if data.count == 2 {
                 // Drop last line which contains the footer
                 containers = LetterContainerBuilder.buildContainers(from: data[0].dropLast(1))

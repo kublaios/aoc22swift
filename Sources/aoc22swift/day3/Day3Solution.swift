@@ -6,10 +6,14 @@ import Foundation
 
 enum Day3 {
     struct Solution {
-        let input = InputParser.parseInput(from: #file)
+        let inputProvider: InputProvider
 
-        func partOne(_ overriddenInput: String? = nil) -> Int {
-            let input = overriddenInput ?? input
+        init(inputProvider: InputProvider = InputProvider(file: #file)) {
+            self.inputProvider = inputProvider
+        }
+
+        func partOne() -> Int {
+            let input = inputProvider.input
             let lines = input.components(separatedBy: "\n")
             // Calculate the sum of priorities of common items in raw input
             let prioritySums = lines.map {
@@ -19,8 +23,8 @@ enum Day3 {
             return prioritySums.reduce(0, +)
         }
 
-        func partTwo(_ overriddenInput: String? = nil) -> Int {
-            let input = overriddenInput ?? input
+        func partTwo() -> Int {
+            let input = inputProvider.input
             // Read input line by line and group them into groups of 3
             let groups: [[String]] = StringArrayGrouper.group(array: input.components(separatedBy: "\n"), by: 3)
             var foundCommonItems: [String] = []

@@ -6,17 +6,21 @@ import Foundation
 
 enum Day1 {
     struct Solution {
-        let input = InputParser.parseInput(from: #file)
+        let inputProvider: InputProvider
+
+        init(inputProvider: InputProvider = InputProvider(file: #file)) {
+            self.inputProvider = inputProvider
+        }
 
         // Returns the highest sum in the given number chunks
         // Not super happy with overriding the input for tests but didn't want to over-engineer
-        func partOne(_ overriddenInput: String? = nil) -> Int {
-            convertInputIntoSumOfNumberChunks(input: overriddenInput ?? input).max()!
+        func partOne() -> Int {
+            convertInputIntoSumOfNumberChunks(input: inputProvider.input).max()!
         }
 
         // Returns the sum of highest three numbers in the given number chunks
-        func partTwo(_ overriddenInput: String? = nil ) -> Int {
-            let totalNumbers = convertInputIntoSumOfNumberChunks(input: overriddenInput ?? input)
+        func partTwo() -> Int {
+            let totalNumbers = convertInputIntoSumOfNumberChunks(input: inputProvider.input)
             return totalNumbers.sorted().suffix(3).reduce(0, +)
         }
 

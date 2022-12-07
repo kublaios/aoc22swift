@@ -6,11 +6,6 @@ import XCTest
 @testable import aoc22swift
 
 final class day4Tests: XCTestCase {
-    func testSolutionInitializes() {
-        let solution = Day4.Solution()
-        XCTAssertNotNil(solution)
-    }
-
     // MARK: Day one
 
     func testIsOneRangeWithinBoundsOfAnotherReturnsTrueWhenOneRangeIsWithinBoundsOfAnother() {
@@ -46,8 +41,8 @@ final class day4Tests: XCTestCase {
                     2-6,4-8
                     """
         let expected = 2
-        let solution = Day4.Solution()
-        let actual = solution.partOne(input)
+        let inputProvider = InputProvider(rawInput: input)
+        let actual = Day4.Solution(inputProvider: inputProvider).partOne()
         XCTAssertEqual(expected, actual)
     }
 
@@ -103,9 +98,9 @@ final class day4Tests: XCTestCase {
                     6-6,4-6
                     2-6,4-8
                     """
+        let inputProvider = InputProvider(rawInput: input)
         let expected = 4
-        let solution = Day4.Solution()
-        let actual = solution.partTwo(input)
+        let actual = Day4.Solution(inputProvider: inputProvider).partTwo()
         XCTAssertEqual(expected, actual)
     }
 }
