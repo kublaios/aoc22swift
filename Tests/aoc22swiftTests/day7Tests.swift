@@ -37,4 +37,10 @@ final class Day7Tests: XCTestCase {
         let result = Day7.Solution(inputProvider: InputProvider(rawInput: input)).partOne()
         XCTAssertEqual(result, expected)
     }
+
+    func testSolutionPartTwo() {
+        let expected = 24933642
+        let result = Day7.Solution(inputProvider: InputProvider(rawInput: input)).partTwo()
+        XCTAssertEqual(result, expected)
+    }
 }

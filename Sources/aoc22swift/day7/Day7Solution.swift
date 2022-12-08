@@ -19,6 +19,17 @@ enum Day7 {
             // Sum of the sizes below 100000
             return allSizes.values.filter { $0 <= 100000 }.reduce(0, +)
         }
+
+        func partTwo() -> Int {
+            let allSizes = FlatFileTreeBuilder.build(input: inputProvider.input)
+            // get the max
+            let availableSpace = 70000000 - (allSizes.values.max() ?? 0)
+            let requiredSpace = 30000000
+            let neededSpace = requiredSpace - availableSpace
+            // find the closest to the required space
+            let closest = allSizes.values.sorted().first { $0 >= neededSpace } ?? 0
+            return closest
+        }
     }
 }
 

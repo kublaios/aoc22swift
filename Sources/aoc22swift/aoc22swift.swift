@@ -4,6 +4,6 @@ public struct aoc22swift {
         // TODO: Maybe refactor this to use command line arguments
         let solution = Day7.Solution()
         print("Solution Part One: \(solution.partOne())")
-//        print("Solution Part Two: \(solution.partTwo())")
+        print("Solution Part Two: \(solution.partTwo())")
     }
 }
