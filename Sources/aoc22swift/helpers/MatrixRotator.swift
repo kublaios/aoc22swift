@@ -7,9 +7,9 @@ import Foundation
 enum MatrixRotator {
     static func rotate<T>(_ matrix: [[T]]) -> [[T]] {
         var result = matrix
-        for i in 0..<matrix.count {
-            for j in 0..<matrix[i].count {
-                result[i][j] = matrix[matrix.count - j - 1][i]
+        for (i, row) in matrix.enumerated() {
+            for (j, column) in row.enumerated() {
+                result[row.count - j - 1][matrix.count - i - 1] = column
             }
         }
         return result
