@@ -13,77 +13,46 @@ enum Day9 {
         }
 
         func partOne() -> Int {
-            let commands = inputProvider.input.components(separatedBy: "\n").map { GridCommand(rawValue: $0) }
+            performCommandsOnOriginArray(ofSize: 2)
+        }
 
-            var headOrigin = GridOrigin(x: 0, y: 0)
-            var origins: Set<GridOrigin> = []
-            origins.insert(headOrigin)
+        func partTwo() -> Int {
+            performCommandsOnOriginArray(ofSize: 10)
+        }
 
-            var tailOrigin = headOrigin
-            var originsTailHasBeen: Set<GridOrigin> = []
-            originsTailHasBeen.insert(tailOrigin)
+        private func performCommandsOnOriginArray(ofSize size: Int) -> Int {
+            let movements = inputProvider.input.components(separatedBy: "\n").map { GridMovement(rawValue: $0) }
 
-            for command in commands {
-                for _ in 0..<command.distance {
-                    let lastHeadOrigin = headOrigin
-                    switch command.direction {
-                    case .left:
-                        headOrigin.x -= 1
-                    case .right:
-                        headOrigin.x += 1
-                    case .up:
-                        headOrigin.y += 1
-                    case .down:
-                        headOrigin.y -= 1
+            // Create an array of origins with the given size
+            let startOrigin = GridOrigin(x: 0, y: 0)
+            var origins = (0..<size).map { _ -> GridOrigin in startOrigin }
+
+            // Mark start origin as the first origin the tail of the array has been
+            var originsTailHasBeen: Set<GridOrigin> = [startOrigin]
+
+            for movement in movements {
+                for _ in 0..<movement.distance {
+                    var movementForNextOrigin = movement
+                    // Move origins one point at a time so we can adjust the position of the elements based on the previous one
+                    movementForNextOrigin.distance = 1
+                    for i in 0..<origins.count {
+                        // Apply direction to the current origin
+                        origins[i] = origins[i].move(movementForNextOrigin)
+                        // If there's a next origin available, override the direction so it can be applied in the next loop cycle
+                        if origins.count > i + 1 {
+                            if abs(origins[i].x - origins[i+1].x) > 1 || abs(origins[i].y - origins[i+1].y) > 1 {
+                                movementForNextOrigin = GridMovement(from: origins[i+1], to: origins[i])
+                            } else {
+                                // If the points are adjacent on the same axis, do not move the following origin
+                                movementForNextOrigin.direction = .stayStill
+                            }
+                        }
                     }
-                    origins.insert(headOrigin)
-
-                    if abs(headOrigin.x - tailOrigin.x) > 1 || abs(headOrigin.y - tailOrigin.y) > 1 {
-                        tailOrigin = lastHeadOrigin
-                        originsTailHasBeen.insert(tailOrigin)
-                    }
+                    // Save the position of tale
+                    originsTailHasBeen.insert(origins.last!)
                 }
             }
             return originsTailHasBeen.count
-        }
-    }
-}
-
-// MARK: Nested types
-extension Day9 {
-    struct GridOrigin: Hashable {
-        var x: Int
-        var y: Int
-    }
-
-    struct GridCommand {
-        enum Direction {
-            case up
-            case down
-            case left
-            case right
-        }
-
-        let direction: Direction
-        let distance: Int
-
-        init(rawValue string: String) {
-            let data = string.components(separatedBy: " ")
-
-            switch data[0] {
-            case "U":
-                direction = .up
-            case "D":
-                direction = .down
-            case "L":
-                direction = .left
-            case "R":
-                direction = .right
-            default:
-                fatalError("Invalid direction")
-            }
-
-            distance = Int(data[1])!
         }
     }
 }
