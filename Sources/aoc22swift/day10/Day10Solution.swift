@@ -31,5 +31,29 @@ enum Day10 {
 
             return sumOfXRegisters
         }
+
+        func partTwo() -> String {
+            let commands = inputProvider.input.components(separatedBy: "\n").map { CPUCommand($0) }
+            var cpu = CPU()
+            var output = ""
+            cpu.clockObserver = { clock, bits in
+                let column = clock % 40
+                if column >= bits.count {
+                    output += "."
+                } else {
+                    output += bits[column] ? "#" : "."
+                }
+            }
+            cpu.execute(commands)
+            // Add line break after every 40th character.
+            var outputWithLineBreaks = ""
+            for i in 0..<output.count {
+                outputWithLineBreaks += String(output[output.index(output.startIndex, offsetBy: i)])
+                if (i+1) % 40 == 0 {
+                    outputWithLineBreaks += "\n"
+                }
+            }
+            return outputWithLineBreaks
+        }
     }
 }

@@ -159,4 +159,10 @@ final class Day10Tests: XCTestCase {
         let solution = Day10.Solution(inputProvider: InputProvider(rawInput: input))
         XCTAssertEqual(solution.partOne(), 13140)
     }
+
+    func testPartTwo() {
+        let solution = Day10.Solution(inputProvider: InputProvider(rawInput: input))
+        XCTAssertEqual(solution.partTwo().replacingOccurrences(of: "\n", with: ""), "##..##..##..##..##..##..##..##..##..##..###...###...###...###...###...###...###.####....####....####....####....####....#####.....#####.....#####.....#####.....######......######......######......###########.......#######.......#######....."
+        )
+    }
 }

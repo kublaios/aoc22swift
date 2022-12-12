@@ -12,6 +12,7 @@ struct CPU {
     }
     var xRegister = 1
     var xRegisterHistory = [1]
+    var clockObserver: ((Int, [Bool]) -> Void)?
 
     mutating func execute(_ commands: [CPUCommand]) {
         for command in commands {
@@ -20,13 +21,21 @@ struct CPU {
     }
 
     mutating private func execute(_ command: CPUCommand) {
+        func tick(operation: () -> Void = {}) {
+            clockObserver?(clock, SpriteRenderer(spritePosition: xRegister).horizontalLineAsBits)
+            // Each tick happens after the operation is done
+            operation()
+            clock += 1
+        }
+
         switch command {
         case .noop:
-            clock += 1
+            tick()
         case .addx(let value):
-            clock += 1
-            xRegister += value
-            clock += 1
+            tick()
+            tick {
+                xRegister += value
+            }
         }
     }
 }
