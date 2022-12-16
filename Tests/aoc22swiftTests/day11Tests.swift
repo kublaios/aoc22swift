@@ -40,4 +40,9 @@ final class day10Tests: XCTestCase {
         let solution = Day11.Solution(inputProvider: InputProvider(rawInput: input))
         XCTAssertEqual(solution.partOne(), 10605)
     }
+
+    func testPartTwo() {
+        let solution = Day11.Solution(inputProvider: InputProvider(rawInput: input))
+        XCTAssertEqual(solution.partTwo(), 2713310158)
+    }
 }

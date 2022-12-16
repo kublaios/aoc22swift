@@ -16,6 +16,10 @@ enum Day11 {
             calculate(worryLevelDivider: 3, numberOfRounds: 20)
         }
 
+        func partTwo() -> Int {
+            calculate(worryLevelDivider: 1, numberOfRounds: 10000)
+        }
+
         private func calculate(worryLevelDivider: Int, numberOfRounds: Int) -> Int {
             var monkeys = inputProvider.input.components(separatedBy: "\n\n")
                 .map { Monkey(rawInput: String($0)) }
