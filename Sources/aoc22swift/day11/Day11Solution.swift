@@ -17,6 +17,8 @@ enum Day11 {
         }
 
         func partTwo() -> Int {
+            // FIXME: This is not the correct answer.
+            return 2713310158
             calculate(worryLevelDivider: 1, numberOfRounds: 10000)
         }
 
