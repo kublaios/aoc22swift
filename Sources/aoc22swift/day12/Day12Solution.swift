@@ -17,5 +17,11 @@ enum Day12 {
             let explorer = GridExplorer(grid: grid)
             return explorer.shortestDistanceFromSourceToTarget()
         }
+
+        func partTwo() -> Int {
+            let grid = GridParser.parse(from: inputProvider.input)
+            let explorer = GridExplorer(grid: grid)
+            return explorer.shortestDistanceFromTargetUntil(priority: 1)
+        }
     }
 }

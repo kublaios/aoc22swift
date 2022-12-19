@@ -32,13 +32,18 @@ struct GridExplorer {
         return branchOut(from: [startingPath]).count - 1 // Minus one for the source
     }
 
+    func shortestDistanceFromTargetUntil(priority: Int) -> Int {
+        let startingPath = [target]
+        return branchBackwards(from: [startingPath], untilReachingPriority: priority).count - 1 // Minus one for the target
+    }
+
     // RIP Edsger Wybe Dijkstra 🧡
     private func branchOut(from paths:[[(x: Int, y: Int)]], visitedNodes: [(x: Int, y: Int)] = []) -> [(x: Int, y: Int)] {
+        var pathsMutable = paths
         var visitedNodesMutable = visitedNodes
         let firstPath = paths.first!
         let lastNode = firstPath.last!
         let lastNodePriority = grid[lastNode.y][lastNode.x]
-        var newPaths = paths.dropFirst()
         for node in AlphabetGridNeighborHelper.init(grid: grid).neighborCoordinatesOnXAndYAxis(of: lastNode) {
             guard grid[node.y][node.x] <= lastNodePriority + 1
             else { continue }
@@ -46,15 +51,43 @@ struct GridExplorer {
             guard !visitedNodesMutable.contains(where: { $0 == node })
             else { continue }
 
-            visitedNodesMutable.append(node)
-
-            if node == target {
+            guard node != target else {
                 return firstPath + [node]
             }
 
-            newPaths += [firstPath + [node]]
+            visitedNodesMutable.append(node)
+            pathsMutable += [firstPath + [node]]
         }
 
-        return branchOut(from: newPaths.sorted { $0.count < $1.count }, visitedNodes: visitedNodesMutable)
+        pathsMutable.removeFirst()
+
+        return branchOut(from: pathsMutable.sorted { $0.count < $1.count }, visitedNodes: visitedNodesMutable)
+    }
+
+    // RIP Edsger Wybe Dijkstra 🧡
+    private func branchBackwards(from paths:[[(x: Int, y: Int)]], untilReachingPriority priority: Int, visitedNodes: [(x: Int, y: Int)] = []) -> [(x: Int, y: Int)] {
+        var pathsMutable = paths
+        var visitedNodesMutable = visitedNodes
+        let firstPath = paths.first!
+        let lastNode = firstPath.last!
+        let lastNodePriority = grid[lastNode.y][lastNode.x]
+        for node in AlphabetGridNeighborHelper.init(grid: grid).neighborCoordinatesOnXAndYAxis(of: lastNode) {
+            let currentNodePriority = grid[node.y][node.x]
+            guard currentNodePriority >= lastNodePriority - 1
+            else { continue }
+
+            guard !visitedNodesMutable.contains(where: { $0 == node })
+            else { continue }
+
+            guard currentNodePriority != priority
+            else { return firstPath + [node] }
+
+            visitedNodesMutable.append(node)
+            pathsMutable += [firstPath + [node]]
+        }
+
+        pathsMutable.removeFirst()
+
+        return branchBackwards(from: pathsMutable.sorted { $0.count < $1.count }, untilReachingPriority: priority, visitedNodes: visitedNodesMutable)
     }
 }

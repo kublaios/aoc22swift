@@ -18,4 +18,9 @@ final class Day12Tests: XCTestCase {
         let solution = Day12.Solution(inputProvider: InputProvider(rawInput: input))
         XCTAssertEqual(solution.partOne(), 31)
     }
+
+    func testPartTwo() {
+        let solution = Day12.Solution(inputProvider: InputProvider(rawInput: input))
+        XCTAssertEqual(solution.partTwo(), 29)
+    }
 }
